@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'DB Ozone X';
+  src: local('DB Ozone X'), url('./fonts/DB-Ozone-X.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'DB Ozone X';
+  src: local('DB Ozone X'), url('./fonts/DB Ozone X Med v3.2.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
+
+body {
+  font-family: 'DB Ozone X', sans-serif;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #707070;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+svg,
+img {
+  display: inline-block;
+}
+
+
+h1 {
+  font-size: 45px;
+  color: #0D676F;
+}
+
+p {
+  font-size: 25px;
+  line-height: 58px;
+}
+
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} 
+
+
+
+
+.swiper-slide {
+  text-align: center;
+  width: fit-content;
+  margin: 0 !important;
+  margin-right:  12px !important;
+}
+
+
