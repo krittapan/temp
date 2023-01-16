@@ -10,6 +10,46 @@ import { PolarArea } from "react-chartjs-2";
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
+
+const options: any ={
+    responsive: true,
+    datalabels: {
+      formatter: function(value, context) {
+        return context.chart.data.labels[context.dataIndex];
+      },
+      anchor: 'start',
+      align: 'end',
+      offset: 0 // Gets updated
+    },
+    plugins: {
+      legend: {
+        display: false
+      },
+      
+    },
+    cutoutPercentage: 20,
+
+    layout: {
+      padding: 30,
+    },
+    scale: {
+      scaleLabel: {
+        display: true
+      },
+      ticks: {
+        max: 450,
+        maxTicksLimit: 1,
+        display: false,
+      },
+      angleLines: {
+        display: true
+      },
+      pointLabels: {
+        display: false
+      }
+    },
+  
+  }
 const PolarChartV2 = () => {
   return (
     <PolarArea
@@ -32,14 +72,24 @@ const PolarChartV2 = () => {
         ],
       }}
 
-      options={{
-        responsive: true,
-        plugins: {
-          
-        }
-      }}
+      options={options}
     />
   );
 };
 
 export default PolarChartV2;
+
+
+
+// options={{
+//   scales: {
+    
+//   },
+//   plugins: {
+//     legend: {
+//       display: false
+//     },
+    
+//   }
+  
+// }}

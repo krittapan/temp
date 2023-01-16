@@ -48,9 +48,9 @@ import dynamic from 'next/dynamic'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const COLORS = ["#9e7f5f", '#c8b78b', '#ab8e6f', '#6f3f21', '#ae8f5a', '#3b291c', '#1b0d00']
+export const COLORS = ["#9e7f5f", '#c8b78b', '#ab8e6f', '#6f3f21', '#ae8f5a', '#3b291c', '#1b0d00']
 const PieChart = ({data}) => {  
-  const {labels, values} = data
+  const {labels, values, hide} = data
   return (
     <div className="max-w-[60%] w-full">
       <Chart
@@ -58,7 +58,9 @@ const PieChart = ({data}) => {
           labels: labels,
           colors: COLORS,
           legend: {
-            fontSize: '20px'
+            show: !hide,
+            fontSize: '24px'
+            
           },
           stroke: {
             show: false

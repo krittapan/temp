@@ -19,6 +19,9 @@ const NavLink = ({ link, label }: INavLinkProps) => {
     }
 
     if (link.slice(1) === '') return false
+     
+    if (!pathname) return
+
 
     return pathname.includes(link.slice(1))
 

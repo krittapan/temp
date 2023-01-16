@@ -77,6 +77,7 @@ const fetchRegions = () => {
     return {
       id: item.id,
       name: item.name,
+      link: item.link
     };
   });
 };

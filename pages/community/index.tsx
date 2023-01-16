@@ -66,7 +66,7 @@ const Page = ({ enterprises: enterprisesData, entrepreneurs, activities }) => {
     <Layout title="วิสาหกิจชุมชนและผู้ประกอบการ">
       <section>
         <div className="flex relative items-center overflow-hidden">
-          <img className="w-full" src={"/images/activity-cover.png"} alt="" />
+          <img className="w-full" src={"/images/community-cover.png"} alt="" />
           <div className="absolute ml-[92px] ">
             <h1 className="text-[104px] text-[white]">วิสาหกิจชุมชน</h1>
             <h1 className="text-[104px] text-[white]">และผู้ประกอบการ</h1>

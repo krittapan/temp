@@ -1,15 +1,17 @@
 import classNames from "classnames";
+import Link from "next/link";
 import React from "react";
 
 interface IThumbnailColorProps {
+  id: string;
   color: string;
   name: string;
   image: string;
 }
-const ThumbnailColor = ({ color, name, image }: IThumbnailColorProps) => {
+const ThumbnailColor = ({ id, color, name, image }: IThumbnailColorProps) => {
   return (
-    <div
-      // href={item.link || "/"}
+    <Link
+      href={`/color/${id}` || "/"}
       className="p-0 m-0 cursor-pointer max-h-[260px] max-w-[520px] h-full w-full overflow-hidden flex items-center"
     >
       <div
@@ -27,7 +29,7 @@ const ThumbnailColor = ({ color, name, image }: IThumbnailColorProps) => {
         })}
         src={image || "/images/empty.png"}
       />
-    </div>
+    </Link>
   );
 };
 

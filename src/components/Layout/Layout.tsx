@@ -18,8 +18,11 @@ const Layout = ({ title, keywords, description, hideFooter, children }: ILayoutP
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
       </Head>
+      <div className="bg-[white] w-full relative z-[1000]">
       <Navbar />
-      <section className="mx-auto max-w-[1152px]">{children}</section>
+      </div>
+
+      <section className="mx-auto max-w-[1152px] relative z-[1] overflow-x-hidden">{children}</section>
       {!hideFooter && <Footer />}
       
     </>

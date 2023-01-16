@@ -5,7 +5,7 @@ import NavLink from "./NavLink";
 
 const Navbar = () => {
   return (
-    <header className="flex w-full justify-between pt-[70px] pb-[40px] items-end max-w-[1200px] mx-auto overflow-x-">
+    <header className="flex w-full justify-between pt-[70px] pb-[40px] items-end max-w-[1200px] mx-auto overflow-x bg-white relative z-[1000]">
       <Link href="/" className="flex space-x-[20px] items-center leading-[38px]">
         <div>
           <img

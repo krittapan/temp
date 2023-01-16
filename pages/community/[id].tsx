@@ -168,10 +168,9 @@ const page = ({ payload }) => {
         </div>
 
         <div
-          className={classNames("flex justify-center"
-          , { 'opacity-0 h-0': !isToggle }
-          
-          )}
+          className={classNames("flex justify-center overflow-y-hidden", {
+            "opacity-0 h-0": !isToggle,
+          })}
         >
           <div className="w-[80%] my-[24px]">
             <RadarChart />

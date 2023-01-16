@@ -10,6 +10,8 @@ import ActivitySlideShow from "../../src/components/Slideshow/ActivitySlideShow"
 import ThumbnailColor from "../../src/components/Thumbnail/ThumbnailColor";
 import PolarChart from "../../src/components/Chart/PolarChart";
 import PolarChartV2 from "../../src/components/Chart/PolarCharV2";
+import { MOCK_PRODUCTS, MOCK_PRODUCTS_4 } from "../../src/mocks/mock";
+import Thumbnail from "../../src/components/Thumbnail/Thumbnail";
 
 
 const fetchActivity = async () => {
@@ -45,7 +47,16 @@ const fetchColorTypes = async (): Promise<IThumbnail[]> => {
   });
 };
 
-const page = ({ colorTypes, activities }) => {
+const getProduct = async () => {
+  return MOCK_PRODUCTS_4.map((item) => {
+    return {
+      id: item.id,
+      name: item.name,
+    };
+  });
+};
+
+const page = ({ products, colorTypes, activities }) => {
   return (
     <Layout title="">
       <section>
@@ -64,12 +75,19 @@ const page = ({ colorTypes, activities }) => {
       </section>
 
 
-          <section>
-          <div>
+          <section className="my-[128px]">
+          <div className="grid grid-cols-[2fr_1fr] gap-x-[24px]">
+            <div>
             <PolarChartV2 />
-            <PolarChart />
+
+            </div>
+            <div className="flex justify-end flex-col">
+              <h1>Lorem ipsum dolor sit amet.</h1>
+              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus quidem molestiae aperiam veniam sed illo eum. Nobis sit ratione enim!</div>
+            </div>
           </div>
           </section>
+
 
 
 
@@ -92,8 +110,8 @@ export default page;
 export const getServerSideProps = async (context) => {
   const activities = await fetchActivity();
   const colorTypes = await fetchColorTypes();
-
+  const products = await getProduct();
   return {
-    props: { colorTypes, activities },
+    props: { colorTypes, activities, products },
   };
 };

@@ -30,8 +30,8 @@ const ColorSlideShow = ({ payload }: IColorSlideShowProps) => {
             key={item.id}
             className="!w-fit  flex flex-col !-0 !mr-[24px] group"
           >
-            <div
-              // href={item.link || "/"}
+            <Link
+              href={`/color/${item.id}`}
               className="p-0 m-0 cursor-pointer h-[180px] w-[360px] overflow-hidden flex items-center"
             >
               <div
@@ -49,7 +49,7 @@ const ColorSlideShow = ({ payload }: IColorSlideShowProps) => {
                 })}
                 src={item.image || "/images/empty.png"}
               />
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -67,8 +67,8 @@ const ColorSlideShow = ({ payload }: IColorSlideShowProps) => {
             key={item.id}
             className="!w-fit  flex flex-col !-0 !mr-[24px] group"
           >
-            <div
-              // href={item.link || "/"}
+            <Link
+              href={`/color/${item.id}`}
               className="p-0 m-0 cursor-pointer h-[180px] w-[360px] overflow-hidden flex items-center"
             >
               <div
@@ -86,7 +86,7 @@ const ColorSlideShow = ({ payload }: IColorSlideShowProps) => {
                 })}
                 src={item.image || "/images/empty.png"}
               />
-            </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -27,3 +27,11 @@ export interface IEnterprise {
   UpdatedAt: string
   UpdatedBy: string
 }
+
+
+
+
+export interface IEnterpriseModel {
+  id: string
+  youtubeUrl: string
+}

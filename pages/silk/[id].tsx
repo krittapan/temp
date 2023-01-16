@@ -99,7 +99,9 @@ const fetchActivity = async () => {
 
 const page = ({ payload }) => {
   const { silk, community, activities,chartData } = JSON.parse(payload);
+  
   const [isToggle, setIsToggle] = useState(false);
+
   return (
     <Layout title={silk.Name}>
       <section>
@@ -149,7 +151,6 @@ const page = ({ payload }) => {
           ))}
         </div>
       </section>
-
 
       <section className="my-[60px]">
         <div

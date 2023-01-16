@@ -37,34 +37,32 @@ export const MOCK_REGIONS = [
   {
     id: '1',
     name: 'ภาคเหนือ',
+    link: '/region/north'
   },
   {
     id: '2',
     name: 'ภาคตะวันออก',
+    link: '/region/east'
   },
   {
     id: '3',
     name: 'ภาคกลาง',
+    link: '/region/central'
   },
   {
     id: '4',
     name: 'ภาคใต้',
+    link: '/region/south'
   },
   {
     id: '5',
-    name: 'ภาคตะวันออก',
+    name: 'ภาคตะวันออกเฉียงเหนือ',
+    link: '/region/northeast'
   },
   {
     id: '6',
     name: 'ภาคตะวันตก',
-  },
-  {
-    id: '7',
-    name: 'ภาคเหนือ',
-  },
-  {
-    id: '8',
-    name: 'ภาคตะวันออก',
+    link: '/region/west'
   },
 ]
 
@@ -173,6 +171,24 @@ export const MOCK_PRODUCTS = [
     name: 'Angkor Silk Cosmetic Bag',
   },
 ]
+export const MOCK_PRODUCTS_4 = [
+  {
+    id: '1',
+    name: 'Passion Fruit Large Silk Twill',
+  },
+  {
+    id: '2',
+    name: 'Royal Garland Large Canvas',
+  },
+  {
+    id: '3',
+    name: 'Passion Fruit Beach Pants',
+  },
+  {
+    id: '4',
+    name: 'Passion Fruit Cross Tie Tunic',
+  },
+]
 
 
 export const MOCK_STANDARDS = [
@@ -226,3 +242,26 @@ export const MOCK_ENTREPRENEUR = [
     name: 'กลุ่มทอผ้า บ้านภูจวง',
   },
 ]
+
+
+
+
+
+
+export const MOCK_ITEM = 
+  {
+    name:  'Lorem ipsum dolor sit amet.'
+  }
+
+
+export const createMock = (len: number) => {
+  const r = []
+
+  for (let i = 0; i < len; i++) {
+    r.push(MOCK_ITEM)
+  }
+  
+  return r
+}
+
+const a = new Array()

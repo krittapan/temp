@@ -70,7 +70,7 @@ const Page = ({fiberChart, fibers, activities}) => {
   return <Layout title="เส้นใยธรรมชาติ">
      <section>
         <div className="flex relative items-center overflow-hidden">
-          <img className="w-full" src={"/images/activity-cover.png"} alt="" />
+          <img className="w-full" src={"/images/silk-cover.png"} alt="" />
           <div className="absolute ml-[92px] ">
             <h1 className="text-[104px] text-[white]">เส้นใยธรรมชาติ</h1>
             <h1 className="text-[52px] text-[white] opacity-50">NATURAL FIBERS</h1>

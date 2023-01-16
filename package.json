@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coreui/react-chartjs": "^2.1.1",
     "@firebase/firestore": "^3.7.3",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
@@ -27,6 +28,8 @@
     "react-apexcharts": "^1.4.0",
     "react-chartjs-2": "^5.1.0",
     "react-dom": "18.2.0",
+    "react-modal": "^3.16.1",
+    "reactjs-popup": "^2.0.5",
     "recharts": "^2.2.0",
     "sass": "^1.56.1",
     "swiper": "^8.4.5",
