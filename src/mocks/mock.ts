@@ -2,32 +2,37 @@ export const MOCK_CLUSTER_MAPS = [
   {
     id: '1',
     name: 'ต้นน้ำ',
-    imageUrl: '/mock/Mask Group 90.png'
+    imageUrl: '/images/cluster-1s.png',
+    link: '/cluster-map/head'
   },
   {
     id: '2',
     name: 'กลางน้ำ',
-    imageUrl: '/mock/Mask Group 91.png'
+    imageUrl: '/images/cluster-2s.png',
+    link: '/cluster-map/body'
   },
   {
     id: '3',
     name: 'ปลายน้ำ',
-    imageUrl: '/mock/Mask Group 92.png'
+    imageUrl: '/images/cluster-3s.png',
+    link: '/cluster-map/tail'
   },
+]
+export const MOCK_CLUSTER_AGENCIES = [
   {
-    id: '4',
+    id: '1',
     name: 'ต้นน้ำ',
-    imageUrl: '/mock/Mask Group 90.png'
+    imageUrl: '/mock/agency-1.png'
   },
   {
-    id: '5',
-    name: 'กลางน้ำ',
-    imageUrl: '/mock/Mask Group 91.png'
+    id: '2',
+    name: 'สถาบันทางการศึกษา',
+    imageUrl: '/mock/agency-2.png'
   },
   {
-    id: '6',
-    name: 'ปลายน้ำ',
-    imageUrl: '/mock/Mask Group 92.png'
+    id: '3',
+    name: 'หน่วยงานสนับสนุนการดำเนินงาน',
+    imageUrl: '/mock/agency-3.png'
   },
 ]
 
@@ -263,5 +268,11 @@ export const createMock = (len: number) => {
   
   return r
 }
+
+export const SPEC_ICONS = [
+  '/images/tree-icon.svg',
+  '/images/circle-icon.svg',
+  '/images/triangle-icon.svg',
+]
 
 const a = new Array()

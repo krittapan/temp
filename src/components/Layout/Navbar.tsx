@@ -17,15 +17,20 @@ const Navbar = () => {
         </div>
         <div className="text-[45px] text-default">
           <div className="">THAI</div>
-          <div className="">SANSEE</div>
+          <div className="">SENSEE</div>
         </div>
       </Link>
       <div className="flex space-x-[30px] text-default text-[30px]">
         <NavLink link={"/"} label="หน้าหลัก"/>
-        <NavLink link={"/potential"} label="ประเมินศักยกภาพ"/>
+        <NavLink link={"/potential"} label="ประเมินศักยภาพ"/>
         <NavLink link={"/community"} label="วิสาหกิจชุมชน"/>
         <NavLink link={"/knowledge"} label="คลังความรู้"/>
         <NavLink link={"/about"} label="เกี่ยวกับเรา"/>
+
+        <div className="flex items-center divide-x-[1px] space-x-[4px]">
+          <img src="/images/searchIcon.svg" />
+          <img src="/images/userIcon.svg" className="pl-[4px]"/>
+        </div>
       </div>
     </header>
   );

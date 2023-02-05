@@ -92,7 +92,7 @@ const Page = ({ enterprises: enterprisesData, entrepreneurs, activities }) => {
           ))}
         </div>
       </section>
-
+{/* 
       <section className="mt-[36px]">
         <h1>ผู้ประกอบการ</h1>
         <div className="flex flex-wrap w-full mt-[24px]">
@@ -106,7 +106,7 @@ const Page = ({ enterprises: enterprisesData, entrepreneurs, activities }) => {
             />
           ))}
         </div>
-      </section>
+      </section> */}
 
 
 

@@ -9,3 +9,11 @@ export interface IColorType {
   UpdatedAt: string
   UpdatedBy: string
 }
+
+export interface IProductsGroup {
+  id: string
+  ColorType: string
+  CoverImgUrl: string
+  ImgUrl: string
+  name: string
+}

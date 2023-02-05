@@ -26,7 +26,22 @@ const fetchActivity = async () => {
   return { mainActivity, subActivity };
 };
 
-const page = ({ activities }) => {
+
+const fetchChart = async () => {
+  const res = await firebaseService.fetchRegionChart("OverAll_GI");
+
+  const chartLabels: any[] = [];
+  const chartDatas: any[] = [];
+  res.map((item) => {
+    chartLabels.push(item.name);
+    chartDatas.push(item.Val);
+  });
+
+
+  return { chartDatas, chartLabels };
+}
+
+const page = ({ activities, chartData }) => {
   return (
     <Layout>
       <section className="relative">
@@ -219,7 +234,7 @@ const page = ({ activities }) => {
 
         <section className="mt-[120px]">
           <div className="text-[32px] text-center">กราฟแสดงสิ่งบ่งชี้ทางภูมิศาสตร์ (01 Thailand)</div>
-          <BarChart />
+          <BarChart data={chartData}/>
         </section>
         <section className="mt-[180px] mb-[98px]">
           <Link href="/knowledge">
@@ -240,10 +255,12 @@ export default page;
 
 export const getServerSideProps = async (context) => {
   const activities = await fetchActivity();
+  const chartData = await fetchChart();
 
   return {
     props: {
       activities,
+      chartData
     },
   };
 };

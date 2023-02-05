@@ -48,7 +48,7 @@ import dynamic from 'next/dynamic'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export const COLORS = ["#9e7f5f", '#c8b78b', '#ab8e6f', '#6f3f21', '#ae8f5a', '#3b291c', '#1b0d00']
+export const COLORS = ["#9e7f5f", '#c8b78b', '#ab8e6f', '#6f3f21', '#ae8f5a', '#3b291c', '#1b0d00', "#9e7f5f", '#c8b78b', '#ab8e6f', '#6f3f21', '#ae8f5a', '#3b291c', '#1b0d00']
 const PieChart = ({data}) => {  
   const {labels, values, hide} = data
   return (

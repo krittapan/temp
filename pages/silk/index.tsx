@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import PieChart from '../../src/components/Chart/PieChart';
+import SilkChart from '../../src/components/Chart/SilkChart';
 import Layout from "../../src/components/Layout/Layout";
 import ActivitySlideShow from "../../src/components/Slideshow/ActivitySlideShow";
 import Thumbnail from "../../src/components/Thumbnail/Thumbnail";
@@ -40,8 +40,10 @@ const fetchFiberChart = async (): Promise<any> => {
     values.push(item.val)
   })
 
+  const specs = await firebaseService.fetchSilkChartSpec(labels)
+
   return {
-    labels, values
+    labels, values, specs
   }
 }
 
@@ -66,7 +68,9 @@ const fetchActivity = async () => {
 };
 
 
-const Page = ({fiberChart, fibers, activities}) => {
+const Page = ({payload}) => {
+
+  const {fiberChart, fibers, activities} = JSON.parse(payload)
   return <Layout title="เส้นใยธรรมชาติ">
      <section>
         <div className="flex relative items-center overflow-hidden">
@@ -96,7 +100,7 @@ const Page = ({fiberChart, fibers, activities}) => {
       <section className="mt-[36px]">
         <h1>ข้อมูลพื้นฐานของเส้นใย</h1>
         <div className="w-full mt-[24px] ml-[48px]">
-        <PieChart data={fiberChart} />
+        <SilkChart data={fiberChart} />
         </div>
       </section>
 
@@ -122,7 +126,9 @@ export const getServerSideProps = async (context) => {
   const fibers = await fetchFibers();
   const activities = await fetchActivity();
   const fiberChart = await fetchFiberChart();
+
+  const payload = JSON.stringify({fibers, activities, fiberChart})
   return {
-    props: {  fiberChart, fibers, activities },
+    props: { payload },
   };
 };

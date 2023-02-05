@@ -97,10 +97,16 @@ const fetchActivity = async () => {
   return { mainActivity, subActivity };
 };
 
+const fetchProductionInfo = async (id: string) => {
+    const res = firebaseService.fetchProductionInfo(id)
+    return res
+}
+
 const page = ({ payload }) => {
-  const { silk, community, activities,chartData } = JSON.parse(payload);
+  const { silk, community, activities,chartData, productionInfos } = JSON.parse(payload);
   
   const [isToggle, setIsToggle] = useState(false);
+
 
   return (
     <Layout title={silk.Name}>
@@ -117,8 +123,8 @@ const page = ({ payload }) => {
             alt=""
           />
           <div className="absolute ml-[92px]">
-            <h1 className="text-[#594f45] text-[45px]">เส้นใยธรรมชาติ</h1>
-            <h1 className="text-[104px]">{silk.Name}</h1>
+            <h1 className="text-[84px] text-[#ffffffee]">{silk.Name}</h1>
+            <h1 className="text-[#ffffff99] text-[45px]">เส้นใยธรรมชาติ</h1>
           </div>
         </div>
         <div className="mt-[60px]">
@@ -135,6 +141,18 @@ const page = ({ payload }) => {
             </div>
             <p>{silk.Description}</p>
           </div>
+        </div>
+
+        <div className=" mt-[24px]">
+          {productionInfos.map((item) => (
+            <div className="flex items-center space-x-[12px] mb-[4px]">
+              <div className="h-[16px] w-[16px] bg-[#684D43] rounded-[50%]"/>
+            <div key={item.name} className="text-[32px] first:mt-[36px] text-[#684D43] ">
+              {item.name} {item.value} {item.unit}
+            </div>
+            </div>
+
+          ))}
         </div>
       </section>
 
@@ -161,16 +179,12 @@ const page = ({ payload }) => {
         </div>
 
         <div
-          className={classNames("flex justify-center relative"
-          , { 'opacity-0 h-0 z-[-100]': !isToggle }
-          
-          )}
+          className={classNames("flex justify-center relative", {
+            "opacity-0 h-0 z-[-100]": !isToggle,
+          })}
         >
           <div className="w-[100%] flex flex-col justify-center my-[24px]">
-            <div className="text-danger">
-              * แสดงค่าเฉลี่ยศักยภาพและความพร้อมของแต่ละเส้นใย / ต่อผู้ผลิิต
-            </div>
-            <StackChart data={chartData}/>
+            <StackChart data={chartData} max={5} />
           </div>
         </div>
       </section>
@@ -192,8 +206,8 @@ export const getServerSideProps = async ({ params: { id } }) => {
   const { silk, community } = await getData(id);
   const chartData = await fetchStackChart(id);
   const activities = await fetchActivity();
-
-  const payload = JSON.stringify({ chartData, silk, community, activities });
+  const productionInfos = await fetchProductionInfo(id)
+  const payload = JSON.stringify({ chartData, silk, community, activities, productionInfos });
   return { props: { payload } };
 
 };

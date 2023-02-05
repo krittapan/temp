@@ -15,16 +15,11 @@ export interface IClusterMapSlideShowProps {
 const ClusterMapSlideShow = ({ payload }: IClusterMapSlideShowProps) => {
   return (
     <>
-      <Swiper
-        slidesPerView="auto"
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
+      <div
+        className="flex justify-between mb-[16px]"
       >
         {payload.map((item) => (
-          <SwiperSlide key={item.id} className="!w-fit  flex flex-col !-0 !mr-[24px] group">
+          <div key={item.id} className="!w-fit  flex flex-col !-0 !mr-[24px] group">
             <div>
               <Link
                 href={item.link || "/"}
@@ -37,10 +32,10 @@ const ClusterMapSlideShow = ({ payload }: IClusterMapSlideShowProps) => {
               </Link>
             </div>
 
-            <div className="text-[30px] mt-[15px] group-hover:text-secondary duration-300">{item.name}</div>
-          </SwiperSlide>
+            <div className="text-[30px] mt-[15px] group-hover:text-secondary duration-300 text-center">{item.name}</div>
+          </div>
         ))}
-      </Swiper>
+      </div>
     </>
   );
 };

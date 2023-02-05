@@ -56,7 +56,21 @@ const getProduct = async () => {
   });
 };
 
-const page = ({ products, colorTypes, activities }) => {
+const fetchColorChart = async () => {
+  const res = await firebaseService.fetchColorChart();
+  const chartLabels:any[] = []
+  const chartDatas:any[] = []
+
+  res.forEach((item) => {
+    chartLabels.push(item.id)
+    chartDatas.push(item.val)
+  })
+  return {
+    chartLabels, chartDatas
+  };
+}
+
+const page = ({ products, colorTypes, activities, chartData }) => {
   return (
     <Layout title="">
       <section>
@@ -74,22 +88,13 @@ const page = ({ products, colorTypes, activities }) => {
         ))}
       </section>
 
-
-          <section className="my-[128px]">
-          <div className="grid grid-cols-[2fr_1fr] gap-x-[24px]">
-            <div>
-            <PolarChartV2 />
-
-            </div>
-            <div className="flex justify-end flex-col">
-              <h1>Lorem ipsum dolor sit amet.</h1>
-              <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus quidem molestiae aperiam veniam sed illo eum. Nobis sit ratione enim!</div>
-            </div>
+      <section className="my-[128px]">
+        <div className="">
+          <div>
+            <PolarChartV2 chartDatas={chartData?.chartDatas || []} chartLabels={chartData?.chartLabels || [] }/>
           </div>
-          </section>
-
-
-
+        </div>
+      </section>
 
       <section className="mt-[36px] mb-[98px]">
         <Link href="/knowledge">
@@ -111,7 +116,8 @@ export const getServerSideProps = async (context) => {
   const activities = await fetchActivity();
   const colorTypes = await fetchColorTypes();
   const products = await getProduct();
+  const chartData = await fetchColorChart()
   return {
-    props: { colorTypes, activities, products },
+    props: { colorTypes, activities, products, chartData },
   };
 };

@@ -8,6 +8,7 @@ import { IActivity } from "../../src/models/ActivityModel";
 import { IArticle } from "../../src/models/ArticleModel";
 import { firebaseService } from "../../src/services/firebase/firebaseService";
 import TreeMap from "../../src/components/Chart/TreeMap";
+import { IRegion, regionLinkMapper } from "../../src/models/RegionModel";
 
 
 
@@ -18,11 +19,30 @@ const getColor = async (id) => {
 }
 
 
-const fetchSection1 = () => {
-  return createMock(4);
+const fetchPlants = async(id) => {
+
+  const p = id.replace("สี", "")
+  const res = await firebaseService.list("PlantsColor", [{key: "ColorType",  value: id}])
+
+  const plants = res.map((item) => {
+    return {
+      id: item.id,
+      name: item.PlantsType,
+      image: item.ImgUrl,
+    };
+  })
+
+  return plants
 };
-const fetchSection2 = () => {
-  return createMock(4);
+const fetchProducts = async(id) => {
+  const res = await firebaseService.list("ProductsGroup", [{key: "ColorType",  value: id}])
+  return res.map((item) => {
+    return {
+      id: item.id,
+      name: item.name,
+      image: item.ImgUrl,
+    };
+  })
 };
 
 
@@ -46,26 +66,44 @@ const fetchActivity = async () => {
   return { mainActivity, subActivity };
 };
 
-const fetchRegions = () => {
-  return MOCK_REGIONS.map((item) => {
+const fetchRegions = async () => {
+
+  const res = await firebaseService.list("RegionType");
+
+  return (res as IRegion[]).map((item) => {
     return {
       id: item.id,
       name: item.name,
-      link: item.link
+      image: item.ImgUrl,
+      link: regionLinkMapper[item.name],
     };
   });
 };
 
+
+const fetchTreeMap = async (id: string) => {
+  const res = await firebaseService.fetchColorTreeMap(id)
+
+
+
+  return res.map((item) => {
+    return {
+      x: item.name,
+      y: item.Val
+    }
+  })
+}
+
 const page = ({payload}) => {
 
-  const { color, activities, section1, section2, regions } = JSON.parse(payload)
-  console.log(color)
+  const { color, activities, plants, products, regions,treeMap, id } = JSON.parse(payload)
+
   return (
     <Layout title="">
       
       <section>
         <div className="flex relative items-center overflow-hidden max-h-[423px]">
-          <img className="w-full" src={color.ImgUrl} alt="" />
+          <img className="w-full" src={color.CoverImgUrl || "/images/empty.png"} alt="" />
           <div className="absolute ml-[92px] ">
             <h1 className="text-[48px] text-[white]">สีย้อมธรรมชาติ</h1>
             <h1 className="text-[104px] text-[white]">กลุ่ม{color.Name}</h1>
@@ -76,17 +114,17 @@ const page = ({payload}) => {
 
 
     <section>
-      <TreeMap />
+      <TreeMap data={treeMap} color={id}/>
     </section>
       <section className="mt-[60px]">
         <h1>สีย้อมในกลุ่ม{color.Name}</h1>
         <div className="flex flex-wrap mt-[24px]">
-          {section1.map((product) => (
+          {plants.map((item) => (
             <Thumbnail
-              key={product.id}
-              name={product.name}
-              image={product.image}
-              url="/plant"
+              key={item.id}
+              name={item.name}
+              image={item.image}
+              url={`/plant/${item.name}`}
               size="large"
             />
           ))}
@@ -97,12 +135,12 @@ const page = ({payload}) => {
       <section className="mt-[60px]">
         <h1>ผลิตภัณฑ์ย้อมสีธรรมชาติ</h1>
         <div className="flex flex-wrap mt-[24px]">
-          {section2.map((product) => (
+          {products.map((product) => (
             <Thumbnail
               key={product.id}
               name={product.name}
               image={product.image}
-              url={""}
+              url={`/product/${id}/${product.name}`}
               size="large"
             />
           ))}
@@ -113,7 +151,7 @@ const page = ({payload}) => {
         <h1>ภูมิภาค</h1>
         <div className="flex flex-wrap mt-[24px]">
           {regions.map((item, index) => (
-            <Thumbnail key={index} name={item.name} url={item.link}/>
+            <Thumbnail key={index} name={item.name} url={item.link} image={item.image}/>
           ))}
         </div>
       </section>
@@ -135,12 +173,13 @@ const page = ({payload}) => {
 export default page;
 export const getServerSideProps = async ({ params: { id } }) => {
   const activities = await fetchActivity();
-  const section1 = fetchSection1();
-  const section2 = fetchSection2();
+  const plants = await fetchPlants(id);
+  const products = await fetchProducts(id);
   const color = await getColor(id);
   const regions = await fetchRegions();
+  const treeMap = await fetchTreeMap(id)
 
-  const payload = JSON.stringify({  color,activities, section1, section2 , regions })
+  const payload = JSON.stringify({  id, color,activities, plants, products , regions,treeMap })
   return {
     props: {payload}
   };

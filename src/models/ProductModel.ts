@@ -1,4 +1,5 @@
 export interface IProduct {
+  id: string
   IdEnterprise: string
   ImgUrl: string
   Name: string
@@ -7,4 +8,11 @@ export interface IProduct {
   CreatedBy: string
   UpdatedAt: string
   UpdatedBy: string
+}
+
+export interface IProductGroup {
+  id: string
+  CoverImgUrl: string
+  ImgUrl: string
+  name: string
 }

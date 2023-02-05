@@ -2,6 +2,7 @@ import { GeoPoint } from "@firebase/firestore"
 
 export interface IEnterprise {
   id: string
+  ImgUrl: string
   Contact: {
     Facebook: string
     IG: string
@@ -21,6 +22,7 @@ export interface IEnterprise {
   RegistrationCode: string
   name: string
   year: number
+  NaturalColorRatio?: number
   Enabled: boolean
   CreatedAt: string
   CreatedBy: string

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -12,9 +13,31 @@ const COLORS = [
   "#1b0d00",
 ];
 
-const TreeMap = () => {
+
+interface ITreeMapProps {
+  data: {
+    x: string;
+    y: number
+  }[]
+  color: string
+}
+
+
+const TreeMap = ({data, color}: ITreeMapProps) => {
   return (
-    <div className="max-w-[100%] w-full">
+    <div className={classNames("max-w-[100%] w-full", {
+      "saturate-0": color === "สีดำ",
+      "hue-rotate-[200deg]": color === "สีเหลือง",
+      "hue-rotate-[190deg]": color === "สีน้ำตาล",
+      "hue-rotate-[45deg]": color === "สีม่วง",
+      "hue-rotate-[180deg]": color === "สีส้ม",
+      "hue-rotate-[240deg]": color === "สีเขียว",
+      "hue-rotate-[140deg]": color === "สีแดง",
+    })}>
+      <div>
+      {color}
+
+      </div>
       <Chart
         options={{
           legend: {
@@ -27,28 +50,7 @@ const TreeMap = () => {
         }}
         series={[
           {
-            data: [
-              {
-                x: 'คราม',
-                y: 500
-              },
-              {
-                x: 'ห้อม',
-                y: 149
-              },
-              {
-                x: 'พืช 1',
-                y: 184
-              },
-              {
-                x: 'พืช 2',
-                y: 55
-              },
-              {
-                x: 'พืช 3',
-                y: 84
-              },
-            ]
+            data
           }
         ]}
         type="treemap"

@@ -50,22 +50,30 @@ const options: any ={
     },
   
   }
-const PolarChartV2 = () => {
+
+  interface IProps {
+    chartLabels: string[];
+    chartDatas: number[];
+  }
+const PolarChartV2 = ({chartLabels, chartDatas }: IProps) => {
+  console.log(chartLabels, chartDatas)
   return (
     <PolarArea
       data={{
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: chartLabels,
         datasets: [
           {
             label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
+            data: chartDatas,
             backgroundColor: [
-              "rgba(255, 99, 132, 0.5)",
-              "rgba(54, 162, 235, 0.5)",
-              "rgba(255, 206, 86, 0.5)",
-              "rgba(75, 192, 192, 0.5)",
-              "rgba(153, 102, 255, 0.5)",
-              "rgba(255, 159, 64, 0.5)",
+              "#0D0D0D",
+              "#794D3A",
+              "#164F81",
+              "#BF2AFE",
+              "#9D4007",
+              "#425535",
+              "#D09E02",
+              "#EF0B0B",
             ],
             borderWidth: 1,
           },

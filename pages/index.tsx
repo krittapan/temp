@@ -16,6 +16,7 @@ import { IColorType } from "../src/models/ColorType";
 import { IActivity } from "../src/models/ActivityModel";
 import { IArticle } from "../src/models/ArticleModel";
 import { IThumbnail } from "../src/types/thumbnail";
+import {IRegion, regionLinkMapper} from "../src/models/RegionModel";
 import {
   MOCK_CLUSTER_MAPS,
   MOCK_KNOWLEDGE_1,
@@ -68,16 +69,21 @@ const fetchClusterMaps = () => {
       id: item.id,
       name: item.name,
       image: item.imageUrl,
+      link: item.link
     };
   });
 };
 
-const fetchRegions = () => {
-  return MOCK_REGIONS.map((item) => {
+const fetchRegions = async () => {
+
+  const res = await firebaseService.list("RegionType");
+
+  return (res as IRegion[]).map((item) => {
     return {
       id: item.id,
       name: item.name,
-      link: item.link
+      image: item.ImgUrl,
+      link: regionLinkMapper[item.name],
     };
   });
 };

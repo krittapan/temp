@@ -1,28 +1,60 @@
 import React from "react";
+import PieChart from "../../src/components/Chart/PieChart";
 import StackChart from "../../src/components/Chart/StackChart";
 import Layout from "../../src/components/Layout/Layout";
 import Thumbnail from "../../src/components/Thumbnail/Thumbnail";
 import { createMock } from "../../src/mocks/mock";
+import { firebaseService } from "../../src/services/firebase/firebaseService";
 
-const fetchSection1 = () => {
-  return createMock(6);
+
+
+
+const fetchAll = async (id: string) => {
+  const chartLabels: any[] = [];
+  const chartDatas: any[] = [];
+
+  const cr = await firebaseService.fetchClusterChart(id);
+
+
+  cr.map((item) => {
+    chartLabels.push(item.id);
+    chartDatas.push(item["จำนวนที่ทำ"]);
+  });
+
+  const chartData = { chartLabels, chartDatas };
+
+  const details = await firebaseService.list("ClusterMap", [
+    { key: "ClusterGroup", value: id },
+  ]);
+
+  const ids = details.map((item) => item.IdEnterprise);
+
+  const enterprises = await firebaseService.bulkFetchEnterprise(ids);
+
+
+  return {
+    chartData,
+    enterprises,
+  };
 };
-const fetchSection2 = () => {
-  return createMock(2);
-};
-const fetchSection3 = () => {
-  return createMock(3);
-};
-const fetchSection4 = () => {
-  return createMock(2);
-};
-const fetchSection5 = () => {
-  return createMock(3);
+const fetchData = async () => {
+  const output: any = [];
+  const groups = await firebaseService.list("ClusterGroup", [
+    { key: "ClusterMapType", value: "ต้นน้ำ" },
+  ]);
+
+  await Promise.all(
+    groups.map(async (group) => {
+      const data = await fetchAll(group.id);
+      output.push({ core: group, ...data });
+    })
+  );
+
+  return output.reverse();
 };
 
 const page = ({ payload }) => {
-
-  const {section1, section2, section3, section4, section5} = JSON.parse(payload)
+  const {  result } = JSON.parse(payload);
 
   return (
     <Layout>
@@ -36,62 +68,34 @@ const page = ({ payload }) => {
         </div>
       </section>
 
-      <section>
-        <h1>กลุ่มปลูกพืชเส้นใย</h1>
-        <div className="flex flex-wrap mt-[24px]">
-          {section1.map((item, index) => (
-            <Thumbnail key={index} name={item.name} />
-          ))}
-        </div>
-      </section>
+      {result.map((item, index) => (
+        <section key={index} className="mb-[48px]">
+          <h1>{item.core.name}</h1>
+          <div className="my-[24px]">
+          <PieChart
+            data={{
+              labels: item?.chartData?.chartLabels || [],
+              values: item?.chartData?.chartDatas || [],
+            }}
+          />
+          </div>
 
-      <section className="mt-[36px]">
-        <h1>กลุ่มเลี้ยงไหม</h1>
-        <div className="flex flex-wrap mt-[24px]">
-          {section2.map((item, index) => (
-            <Thumbnail key={index} name={item.name} />
-          ))}
-        </div>
-      </section>
+          <div className="flex flex-wrap mt-[24px]">
+            {item.enterprises.map((item, index) => (
+              <Thumbnail
+                key={index}
+                name={item.name}
+                url={`/community/${item.id}`}
+                image={item.ImgUrl}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
 
-      <section className="mt-[36px]">
-        <h1>กลุ่มผลินเส้นใย</h1>
-        <div className="flex flex-wrap mt-[24px]">
-          {section3.map((item, index) => (
-            <Thumbnail key={index} name={item.name} />
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-[36px]">
-        <h1>กลุ่มผลิตเส้นด้าย</h1>
-        <div className="flex flex-wrap mt-[24px]">
-          {section4.map((item, index) => (
-            <Thumbnail key={index} name={item.name} />
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-[36px]">
-        <h1>ผู้ประกอบการ</h1>
-        <div className="flex flex-wrap mt-[24px]">
-          {section5.map((item, index) => (
-            <Thumbnail key={index} name={item.name} />
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <StackChart
-          data={{
-            labels: ["TEXT01", "TEXT02", "TEXT03", "TEXT04"],
-            values: [
-              { name: " a", data: [1, 2, 3, 4] },
-              { name: " b", data: [4, 3, 2, 1] },
-            ],
-          }}
-        />
-      </section>
+      <div className="bg-[#1A486C] w-full py-[12px] rounded-[12px] text-[white] text-center cursor-pointer my-[36px]">
+        หน่วยงานสนับสนุนและผู้ประกอบการที่เกี่ยวข้อง
+      </div>
     </Layout>
   );
 };
@@ -99,13 +103,9 @@ const page = ({ payload }) => {
 export default page;
 
 export const getServerSideProps = async (context) => {
-  const section1 = fetchSection1();
-  const section2 = fetchSection2();
-  const section3 = fetchSection3();
-  const section4 = fetchSection4();
-  const section5 = fetchSection5();
+  const result = await fetchData();
 
-  const payload = JSON.stringify({section1, section2, section3, section4, section5})
+  const payload = JSON.stringify({ result });
   return {
     props: {
       payload,
