@@ -53,10 +53,15 @@ const getPatent = async (id: string) => {
 };
 
 const getStandard = async (id: string) => {
-  const res = await firebaseService.list("Standard", [
+  const standards = await firebaseService.list("Standard", [
     { key: "IdEnterprise", value: id },
   ]);
-  return res;
+  
+  const ids = standards.map((item) => item.StandardName)
+  const imgs = await firebaseService.bulkFetch('StandardName', ids)
+
+  console.log('imgs',imgs)
+  return {standards, imgs};
 };
 
 const getChartData = async (id: string)  => {
@@ -77,13 +82,17 @@ const getChartData = async (id: string)  => {
 }
 
 const page = ({ payload }) => {
-  const { data, products, fiberList, shops, standards, patents, chartData } =
+  const { data, products, fiberList, shops, standardsData, patents, chartData } =
     JSON.parse(payload);
 
-  const address: IEnterprise["address"] = data[" address"];
-  const contact: IEnterprise["Contact"] = data[" Contact"];
+
+  const {standards, imgs } = standardsData
+  const address: IEnterprise["address"] = data["address"];
+  const contact: IEnterprise["Contact"] = data["Contact"];
 
   const [isToggle, setIsToggle] = useState(false);
+
+  console.log('add',)
   return (
     <Layout>
       <section className="mt-[48px]">
@@ -189,7 +198,7 @@ const page = ({ payload }) => {
           </div>
           <div className="flex space-x-[20px] items-center">
             <iframe
-              src={`https://maps.google.com/maps?q=${data?.Location?.latitude}, ${data?.Location?.longitude}&z=15&output=embed`}
+              src={data.LocationGmap}
               width="178"
               height="178"
             ></iframe>
@@ -203,7 +212,7 @@ const page = ({ payload }) => {
           {standards.map((item) => (
             <div className="flex flex-col items-center">
               <img
-                src={item.ImgUrl || "/images/empty.png"}
+                src={imgs.find((e) => e.name === item.StandardName)?.logoUrl || "/images/empty.png"}
                 width={80}
                 height={80}
                 alt="QR"
@@ -250,7 +259,7 @@ export const getServerSideProps = async ({ params: { id } }) => {
   const products = await getProduct(id);
   const fiberList = await getFiberList(id);
   const shops = await getShop(id);
-  const standards = await getStandard(id);
+  const standardsData = await getStandard(id);
   const patent = await getPatent(id);
   const chartData = await getChartData(id);
   const payload = JSON.stringify({
@@ -258,7 +267,7 @@ export const getServerSideProps = async ({ params: { id } }) => {
     products,
     fiberList,
     shops,
-    standards,
+    standardsData,
     patent,
     chartData,
   });

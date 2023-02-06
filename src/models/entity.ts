@@ -28,3 +28,4 @@ export type entity =
   | 'ClusterMap'
   | 'FiberRegion'
   | 'PlantsRegion'
+  | 'StandardName'

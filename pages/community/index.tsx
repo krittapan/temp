@@ -17,7 +17,7 @@ const fetchEnterprise = async (value = "") => {
   return (res as IEnterprise[]).map((item) => {
     return {
       id: item.id,
-      image: "",
+      image: item.ImgUrl,
       name: item.name,
     };
   });

@@ -91,7 +91,7 @@ const page = ({ payload }) => {
               <Thumbnail
                 key={item.id}
                 name={item.name}
-                image={item.image}
+                image={item.ImgUrl}
                 url={`/community/${item.id}`}
               />
             ))}

@@ -16,7 +16,7 @@ import { IColorType } from "../src/models/ColorType";
 import { IActivity } from "../src/models/ActivityModel";
 import { IArticle } from "../src/models/ArticleModel";
 import { IThumbnail } from "../src/types/thumbnail";
-import {IRegion, regionLinkMapper} from "../src/models/RegionModel";
+import { IRegion, regionLinkMapper } from "../src/models/RegionModel";
 import {
   MOCK_CLUSTER_MAPS,
   MOCK_KNOWLEDGE_1,
@@ -69,13 +69,12 @@ const fetchClusterMaps = () => {
       id: item.id,
       name: item.name,
       image: item.imageUrl,
-      link: item.link
+      link: item.link,
     };
   });
 };
 
 const fetchRegions = async () => {
-
   const res = await firebaseService.list("RegionType");
 
   return (res as IRegion[]).map((item) => {
@@ -107,14 +106,9 @@ const fetchActivity = async () => {
 
   return { mainActivity, subActivity };
 };
-const Page = ({
-  banners,
-  fibers,
-  colorTypes,
-  regions,
-  activities,
-  clusterMaps,
-}) => {
+const Page = ({ payload }) => {
+  const { banners, fibers, colorTypes, regions, activities, clusterMaps } =
+    JSON.parse(payload);
   return (
     <Layout>
       {/* <head>
@@ -122,7 +116,7 @@ const Page = ({
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/favicon.ico" />
       </head> */}
-      <section className="bg-[red]">
+      <section className="">
         <Slideshow payload={banners} />
       </section>
 
@@ -183,14 +177,17 @@ export const getServerSideProps = async (context) => {
   const activities = await fetchActivity();
   const clusterMaps = await fetchClusterMaps();
 
+  const payload = JSON.stringify({
+    banners,
+    fibers,
+    colorTypes,
+    regions,
+    activities,
+    clusterMaps,
+  });
   return {
     props: {
-      banners,
-      fibers,
-      colorTypes,
-      regions,
-      activities,
-      clusterMaps,
+      payload,
     },
   };
 };
