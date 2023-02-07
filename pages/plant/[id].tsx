@@ -12,7 +12,7 @@ const fetchPlant = async (id: string) => {
 };
 
 const fetchCommunities = async (id: string) => {
-  const r = await firebaseService.list("PlantsColor", [
+  const r = await firebaseService.list("Plants", [
     { key: "PlantsType", value: id },
   ]);
 

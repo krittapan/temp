@@ -29,3 +29,4 @@ export type entity =
   | 'FiberRegion'
   | 'PlantsRegion'
   | 'StandardName'
+  | 'Plants'

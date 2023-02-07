@@ -21,16 +21,24 @@ const getColor = async (id) => {
 
 const fetchPlants = async(id) => {
 
-  const p = id.replace("สี", "")
   const res = await firebaseService.list("PlantsColor", [{key: "ColorType",  value: id}])
 
+
+
+  const ids = res.map((item) => item.PlantsType)
+
+
+  const r = await firebaseService.bulkFetch("PlantsType", ids)
+
+  console.log('r', r)
   const plants = res.map((item) => {
     return {
       id: item.id,
       name: item.PlantsType,
-      image: item.ImgUrl,
+      image: r.find((e) => e.id === item.PlantsType)?.ImgUrl,
     };
   })
+
 
   return plants
 };
@@ -117,7 +125,7 @@ const page = ({payload}) => {
       <TreeMap data={treeMap} color={id}/>
     </section>
       <section className="mt-[60px]">
-        <h1>สีย้อมในกลุ่ม{color.Name}</h1>
+        <h1>วัตถุดิบและพรรณพืชกลุ่ม{color.Name}</h1>
         <div className="flex flex-wrap mt-[24px]">
           {plants.map((item) => (
             <Thumbnail
