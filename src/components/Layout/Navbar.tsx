@@ -20,7 +20,7 @@ const Navbar = () => {
           <div className="">SENSEE</div>
         </div>
       </Link>
-      <div className="flex text-default text-[30px] flex-col sm:flex-row">
+      <div className="flex text-default text-[30px] flex-col sm:flex-row gap-x-[20px]">
         <NavLink link={"/"} label="หน้าหลัก"/>
         <NavLink link={"/potential"} label="ประเมินศักยภาพ"/>
         <NavLink link={"/community"} label="วิสาหกิจชุมชน"/>
