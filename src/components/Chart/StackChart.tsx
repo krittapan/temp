@@ -24,6 +24,7 @@ const StackChart = ({data, max, height = 300}: IProps) => {
               show: false
             },
             stacked: true,
+            stackType:'100%'
           },
           plotOptions: {
             bar: {
@@ -40,6 +41,8 @@ const StackChart = ({data, max, height = 300}: IProps) => {
             position: 'top',
             horizontalAlign: 'right',
             // offsetX: 40
+		fontFamily: 'DB Ozone X',
+fontSize: '24px',
           }
         }}
         series={values}
@@ -47,6 +50,7 @@ const StackChart = ({data, max, height = 300}: IProps) => {
         width='100%'
         height={height}
       />
+      <div>* ข้อมูลที่แสดงมีที่มาจากการสำรวจกลุ่มวิสาหกิจชุมชนจำนวน 120 กลุ่ม ในปี 2565</div>
     </div>
   )
 }

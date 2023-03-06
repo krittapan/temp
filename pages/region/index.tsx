@@ -20,6 +20,7 @@ const fetchActivity = async () => {
     return {
       id: item.id,
       image: item.ImgUrl,
+      link: item.LinkUrl,
     };
   });
 
@@ -233,7 +234,7 @@ const page = ({ activities, chartData }) => {
 
 
         <section className="mt-[120px]">
-          <div className="text-[32px] text-center">กราฟแสดงสิ่งบ่งชี้ทางภูมิศาสตร์ (01 Thailand)</div>
+          <div className="text-[32px] text-center">กราฟแสดงสิ่งบ่งชี้ทางภูมิศาสตร์ (GI Thailand)</div>
           <BarChart data={chartData}/>
         </section>
         <section className="mt-[180px] mb-[98px]">

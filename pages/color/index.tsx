@@ -88,13 +88,13 @@ const page = ({ products, colorTypes, activities, chartData }) => {
         ))}
       </section>
 
-      <section className="my-[128px]">
+      {/*<section className="my-[128px]">
         <div className="">
           <div>
             <PolarChartV2 chartDatas={chartData?.chartDatas || []} chartLabels={chartData?.chartLabels || [] }/>
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <section className="mt-[36px] mb-[98px]">
         <Link href="/knowledge">

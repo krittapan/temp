@@ -28,8 +28,16 @@ const Navbar = () => {
         <NavLink link={"/about"} label="เกี่ยวกับเรา"/>
 
         <div className="hidden sm:flex items-center divide-x-[1px] space-x-[4px]">
+	    <Link
+              href={"/community"}>
+              <img
+                src="/images/searchIcon.svg"
+              />
+            </Link>
+	  {/*
           <img src="/images/searchIcon.svg" />
           <img src="/images/userIcon.svg" className="pl-[4px]"/>
+          */}
         </div>
       </div>
     </header>

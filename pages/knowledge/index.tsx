@@ -8,12 +8,16 @@ import { IActivity } from "../../src/models/ActivityModel";
 import { IArticle } from "../../src/models/ArticleModel";
 import Link from "next/link";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper";
+
 const fetchActivity = async () => {
   const resMain = await firebaseService.list("Activity");
   const mainActivity = (resMain as IActivity[]).map((item) => {
     return {
       id: item.id,
       image: item.ImgUrl,
+      link:item.LinkUrl,
     };
   });
 
@@ -22,6 +26,7 @@ const fetchActivity = async () => {
     return {
       id: item.id,
       image: item.ImgUrl,
+      link: item.LinkUrl,
     };
   });
 
@@ -61,8 +66,22 @@ const page = ({ payload }) => {
 
       <section className="mt-[36px]">
         <h1 className="mb-[24px]">ต้นแบบวิสาหกิจชุมชน</h1>
-        <div className="flex space-x-[24px]">
-          {youtubes.map((e) => (
+        
+        <Swiper
+      spaceBetween={2}
+      centeredSlides={true}
+      // autoplay={{
+      //   delay: 5000,
+      //   disableOnInteraction: false,
+      // }}
+      // pagination={{
+      //   clickable: true,
+      // }}
+      navigation={true}
+      modules={[Navigation]}
+    >
+      {youtubes.map((e) => (
+        <SwiperSlide key={e.id} className="!w-fit  flex flex-col !-0 !mr-[24px] group">
             <iframe
               key={e.id}
               width="572"
@@ -73,8 +92,9 @@ const page = ({ payload }) => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
+            </SwiperSlide>
           ))}
-        </div>
+    </Swiper>
       </section>
 
       <section className="mt-[36px]">
@@ -90,26 +110,18 @@ const page = ({ payload }) => {
              
             </Link>
           ))}
-          {/* <p className="text-primary">ชุดความรู้ด้านเส้นใยธรรมชาติ</p>
-          <p className="text-primary">ชุดความรู้เกี่ยวกับเส้นใยกัญชง</p>
-          <p className="text-primary">ชุดความรู้ด้านการย้อมสีธรรมชาติ</p>
-          <p className="text-primary">
-            ชุดความรู้คำศัพท์สิ่งทอ (Textile Terms)
-          </p>
-          <p className="text-primary">ชุดความรู้ด้านการเพิ่มสมบัติพิเศษ</p>
-          <p className="text-primary">
-            ชุดความรู้ด้านการดูแลรักษาผลิตภัณฑ์สิ่งทอ
-          </p>
-          <p className="text-primary">ชุดความรู้เกี่ยวกับเส้นไยสับปะรด</p>
-          <p className="text-primary">
-            ชุดความรู้ด้านการออกแบบและเทคนิคการตกแต่งสิ่งทอ
-          </p>
-          <p className="text-primary">ชุดความรู้เกี่ยวกับไหมอิรี่</p>
-          <p className="text-primary">
-            ชุดความรู้ด้านกาออกแบบและตัดเย็บสิ่งทอและผลิตภัณฑ์
-          </p> */}
         </div>
       </section>
+      {/* <section className="mt-[36px] mb-[60px]">
+        <div className="grid grid-cols-2 gap-y-[36px]">
+          {articles.map((item) => (
+            <Link href={item.link || "/knowledge"} className="text-primary border-solid">
+              <div className="hover:text-secondary"> {item.Name}</div>
+             
+            </Link>
+          ))}
+        </div>
+      </section> */}
     </Layout>
   );
 };

@@ -24,6 +24,7 @@ const fetchActivity = async () => {
     return {
       id: item.id,
       image: item.ImgUrl,
+      link: item.LinkUrl,
     };
   });
 
@@ -86,9 +87,10 @@ const page = ({ payload }) => {
   return (
     <Layout>
       <section>
-        <div>
-          <div className="flex relative items-center overflow-hidden">
-            <img className="w-full" src={"/images/cluster-0.png"} alt="" />
+        <div className="flex relative items-center overflow-hidden">
+          <img className="w-full" src={"/images/cluster-0.png"} alt="" />
+          <div className="absolute ml-[92px] ">
+            <h1 className="text-[104px] text-[white]">CLUSTER MAP</h1>
           </div>
         </div>
 
@@ -136,13 +138,14 @@ const page = ({ payload }) => {
         </Popup>
       </div>
 
-      <section className="mt-[36px]">
+      {/*
+	<section className="mt-[36px]">
         <Link href="/cluster-map">
           <h1 className="mb-[16px]">หน่วยงานสนับสนุนการดำเนินงาน</h1>
         </Link>
         <ClusterMapSlideShow payload={agencies} />
       </section>
-
+       */}
       <section>
         <StackChart data={chartData} height={600} />
       </section>

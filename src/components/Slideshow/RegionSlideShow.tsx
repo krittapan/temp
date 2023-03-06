@@ -16,12 +16,12 @@ const RegionSlideShow = ({ payload }: IRegionSlideShowProps) => {
   return (
     <>
       <Swiper
-        slidesPerView="auto"
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
+        // slidesPerView="auto"
+        // autoplay={{
+        //   delay: 2500,
+        //   disableOnInteraction: false,
+        // }}
+        // modules={[Autoplay]}
       >
         {payload.map((item) => (
           <SwiperSlide key={item.id} className="!w-fit  flex flex-col !-0 !mr-[24px] group">

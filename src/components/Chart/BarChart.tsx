@@ -17,8 +17,10 @@ const BarChart = ({data}) => {
             },
           },
           legend: {
-            show: false,
-          },
+            show: true,
+	    fontFamily: 'DB Ozone X',
+	    fontSize: "24px",
+          },  
           colors: [
             "#3B877B",
             "#F09536",
@@ -61,6 +63,7 @@ const BarChart = ({data}) => {
         width="100%"
         height={480}
       />
+    <div>* ข้อมูลที่แสดงมีที่มาจากการสำรวจกลุ่มวิสาหกิจชุมชนจำนวน 120 กลุ่ม ในปี 2565</div>
     </div>
   );
 };

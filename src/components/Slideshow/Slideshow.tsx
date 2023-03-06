@@ -17,10 +17,14 @@ const Slideshow = ({ payload }: ISlideshowProps) => {
       spaceBetween={2}
       centeredSlides={true}
       autoplay={{
-        delay: 2500,
+        delay: 5000,
         disableOnInteraction: false,
       }}
-      modules={[Autoplay]}
+      pagination={{
+	clickable: true,
+	}}
+	navigation={true}
+      modules={[Autoplay,Pagination,Navigation]}
     >
       {payload.map((item) => (
         <SwiperSlide key={item.id} className="!w-full mx-auto ">

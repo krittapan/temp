@@ -17,7 +17,7 @@ const FiberSlideShow = ({ payload }: IFiberSlideShowProps) => {
       <Swiper
         slidesPerView="auto"
         autoplay={{
-          delay: 2500,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         modules={[Autoplay]}

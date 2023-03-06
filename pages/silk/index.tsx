@@ -61,6 +61,7 @@ const fetchActivity = async () => {
     return {
       id: item.id,
       image: item.ImgUrl,
+      link: item.LinkUrl,
     };
   });
 

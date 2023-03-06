@@ -56,6 +56,7 @@ const TreeMap = ({data, color}: ITreeMapProps) => {
         type="treemap"
         height={350}
       />
+    <div>* ข้อมูลที่แสดงมีที่มาจากการสำรวจกลุ่มวิสาหกิจชุมชนจำนวน 120 กลุ่ม ในปี 2565</div>
     </div>
   );
 };
